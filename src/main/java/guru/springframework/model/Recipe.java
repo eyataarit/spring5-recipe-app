@@ -1,5 +1,7 @@
 package guru.springframework.model;
 
+import guru.springframework.enums.Difficulty;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -24,9 +26,14 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
+    @ManyToMany(mappedBy = "recipies")
+    private Set<Category> categories;
 
     public String getDescription() {
         return description;
@@ -115,4 +122,21 @@ public class Recipe {
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 }

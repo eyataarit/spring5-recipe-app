@@ -28,35 +28,25 @@ public class Ingredient {
     public void setDescription(String description) {
         this.description = description;
     }
-
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
-
-    public Long getId() {
-        return id;
-    }
-
+    public Long getId() {return id;}
     public String getDescription() {
         return description;
     }
-
     public BigDecimal getAmount() {
         return amount;
     }
-
     public Recipe getRecipe() {
         return recipe;
     }
-
     public UnitMeasure getUom() {
         return uom;
     }
-
     public void setUom(UnitMeasure uom) {
         this.uom = uom;
     }

@@ -5,6 +5,7 @@ import java.util.Set;
 
 @Entity
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,19 +18,8 @@ public class Category {
                 inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Recipe> recipies;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<Recipe> getRecipies() {
-        return recipies;
-    }
-
-    public void setRecipies(Set<Recipe> recipies) {
-        this.recipies = recipies;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
+    public Set<Recipe> getRecipies() {return recipies;}
+    public void setRecipies(Set<Recipe> recipies) {this.recipies = recipies;}
 }

@@ -17,6 +17,10 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
+    // loaded every time , by default , but just to show you how
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private UnitMeasure uom;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,5 +51,13 @@ public class Ingredient {
 
     public Recipe getRecipe() {
         return recipe;
+    }
+
+    public UnitMeasure getUom() {
+        return uom;
+    }
+
+    public void setUom(UnitMeasure uom) {
+        this.uom = uom;
     }
 }

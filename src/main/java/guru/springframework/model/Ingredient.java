@@ -18,8 +18,17 @@ public class Ingredient {
     private Recipe recipe;
 
     // loaded every time , by default , but just to show you how
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     private UnitMeasure uom;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitMeasure uom) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+    }
 
     public void setId(Long id) {
         this.id = id;

@@ -3,6 +3,7 @@ package guru.springframework.model;
 import guru.springframework.enums.Difficulty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,10 +19,12 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
-    private String direction;
+
+    @Lob
+    private String directions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
     private Byte[] image;
@@ -32,8 +35,11 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
-    @ManyToMany(mappedBy = "recipies")
-    private Set<Category> categories;
+    @ManyToMany
+    @JoinTable(name = "recipe_category",
+                joinColumns = @JoinColumn(name = "recipe_id"),
+                inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 
     public String getDescription() {
         return description;
@@ -71,11 +77,11 @@ public class Recipe {
     public void setUrl(String url) {
         this.url = url;
     }
-    public String getDirection() {
-        return direction;
+    public String getDirections() {
+        return directions;
     }
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setDirections(String directions) {
+        this.directions = directions;
     }
     public Byte[] getImage() {
         return image;
@@ -88,6 +94,7 @@ public class Recipe {
     }
     public void setNotes(Notes notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
     public void setId(Long id) {
         this.id = id;
@@ -114,4 +121,9 @@ public class Recipe {
         this.categories = categories;
     }
 
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
 }

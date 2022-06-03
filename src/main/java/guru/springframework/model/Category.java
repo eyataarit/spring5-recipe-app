@@ -12,10 +12,7 @@ public class Category {
 
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "recipie_category",
-                joinColumns = @JoinColumn(name = "recipe_id"),
-                inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipies;
 
     public Long getId() {return id;}

@@ -1,12 +1,16 @@
 package guru.springframework.controllers;
 
 import guru.springframework.model.Recipe;
-import guru.springframework.services.RecipeServiceImpl;
+import guru.springframework.services.RecipeService;
 import junit.framework.TestCase;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import java.util.HashSet;
@@ -14,12 +18,14 @@ import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class RecipeControllerTest extends TestCase {
 
 
     @Mock
-    RecipeServiceImpl recipeService;
+    RecipeService recipeService;
 
     @Mock
     Model model;
@@ -32,6 +38,16 @@ public class RecipeControllerTest extends TestCase {
         recipeController = new RecipeController(recipeService);
     }
 
+    @Test
+    public void testMockMVC() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipes"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipes"));
+
+    }
+
+    @Test
     public void testGetRecipes() throws Exception{
         //given
         Set<Recipe> recipes = new HashSet<>();

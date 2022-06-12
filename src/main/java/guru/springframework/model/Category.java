@@ -19,4 +19,12 @@ public class Category {
     public void setId(Long id) {this.id = id;}
     public Set<Recipe> getRecipies() {return recipies;}
     public void setRecipies(Set<Recipe> recipies) {this.recipies = recipies;}
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
